@@ -1,13 +1,13 @@
-// src/components/Navbar.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux"; // 🔥 Import Redux selector
 
 const Navbar = () => {
-  // You can replace this with real auth logic (useContext or JWT)
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // false = user not logged in
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // for mobile toggle
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const user = useSelector((state) => state.user?.user); // 👈 Access user from Redux
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -24,7 +24,7 @@ const Navbar = () => {
           <Link to="/book" className="text-gray-700 hover:text-purple-600">Book</Link>
           <Link to="/login" className="text-gray-700 hover:text-purple-600">Admin</Link>
 
-          {isLoggedIn ? (
+          {user ? (
             <Link to="/profile" className="text-gray-700 font-medium hover:text-purple-600">
               Profile
             </Link>
@@ -65,7 +65,7 @@ const Navbar = () => {
           <Link to="/book" className="block text-gray-700 hover:text-purple-600">Book</Link>
           <Link to="/login" className="block text-gray-700 hover:text-purple-600">Admin</Link>
 
-          {isLoggedIn ? (
+          {user ? (
             <Link to="/profile" className="block text-gray-700 font-medium hover:text-purple-600">
               Profile
             </Link>

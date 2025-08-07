@@ -1,10 +1,15 @@
 // src/pages/Login.jsx
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import auth from "../services/auth";
+import { setUser } from "../store/features/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.user.user);
+  // console.log(user)
+  const dispatch = useDispatch()
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -16,19 +21,25 @@ const Login = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    const adminEmail = "admin@stylezone.com";
-    const adminPass = "admin123";
-
-    if (form.email === adminEmail && form.password === adminPass) {
-      setError("");
-      console.log("✅ Login success");
-      navigate("/admin");
-    } else {
-      setError("Invalid credentials");
+    setError(" ")
+    try {
+      const res = await auth.login(form);
+      localStorage.setItem('token', res.data.token)
+      if (res.request.status === 200) {
+        console.log(true)
+        const me = await auth.me() 
+        dispatch(setUser(me.data.user))
+        navigate('/')
+      }
     }
+
+    catch (err) {
+      console.error(err);
+      setError(err.response.data.message);
+    }
+
   };
 
   return (
