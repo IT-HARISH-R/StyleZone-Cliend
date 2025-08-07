@@ -19,7 +19,6 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // 💡 Simple mock admin check — replace with real API later
     const adminEmail = "admin@stylezone.com";
     const adminPass = "admin123";
 
@@ -73,6 +72,17 @@ const Login = () => {
             Login
           </button>
         </form>
+
+        {/* 🔗 Signup Link */}
+        <p className="text-sm text-center mt-4">
+          Don’t have an account?{" "}
+          <span
+            onClick={() => navigate("/signup")}
+            className="text-purple-600 cursor-pointer hover:underline"
+          >
+            Create one
+          </span>
+        </p>
       </div>
     </div>
   );

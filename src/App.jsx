@@ -12,6 +12,7 @@ import Services from "./pages/Services";
 import Booking from "./pages/Booking";
 import Confirmation from "./pages/Confirmation";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import AdminDashboard from "./pages/AdminDashboard";
 import AddService from "./pages/AddService";
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/book" element={<Booking />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/add-service" element={<AddService />} />
           </Routes>
