@@ -15,8 +15,28 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AdminDashboard from "./pages/AdminDashboard";
 import AddService from "./pages/AddService";
+import { useDispatch, useSelector } from "react-redux";
+import auth from "./services/auth";
+import { setUser } from "./store/features/userSlice";
+import Profile from "./pages/Profile";
+
+
 
 function App() {
+
+  const user = useSelector((state) => state.user.user)
+  const dispatch = useDispatch()
+  console.log(user)
+  if (user === null) {
+    const getuser = async () => {
+      const res = await auth.me();
+      if (!user === null) {
+        dispatch(setUser(res.data.user))
+      }
+    }
+    getuser()
+  }
+
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
@@ -30,6 +50,7 @@ function App() {
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/add-service" element={<AddService />} />
           </Routes>

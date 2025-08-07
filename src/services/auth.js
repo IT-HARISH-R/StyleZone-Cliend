@@ -10,8 +10,12 @@ const auth = {
         return res
     },
     me: async () => {
-        const res = await instance.get('/auth/me/')
-        return res
+        const token = localStorage.getItem('token');
+        if (token) {
+            const res = await instance.get('/auth/me/')
+            return res
+        }
+        return null
     }
 }
 
