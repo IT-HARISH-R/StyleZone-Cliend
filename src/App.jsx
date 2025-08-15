@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import auth from "./services/auth";
 import { setUser } from "./store/features/userSlice";
 import Profile from "./pages/Profile";
+import AppointmentSlots from "./components/AppointmentSlots ";
 
 
 
@@ -26,12 +27,15 @@ function App() {
 
   const user = useSelector((state) => state.user.user)
   const dispatch = useDispatch()
-  console.log(user)
+  // console.log(user)
   if (user === null) {
     const getuser = async () => {
-      const res = await auth.me();
-      if (!user === null) {
+      try {
+        const res = await auth.me();
         dispatch(setUser(res.data.user))
+      }
+      catch (err) {
+
       }
     }
     getuser()
@@ -46,7 +50,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/book" element={<Booking />} />
+            {/* <Route path="/book-appointment" element={<AppointmentSlots />} /> */}
+            <Route path="/book" element={<AppointmentSlots />} />
+            <Route path="/booking" element={<Booking />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

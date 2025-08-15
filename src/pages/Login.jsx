@@ -28,7 +28,7 @@ const Login = () => {
       const res = await auth.login(form);
       localStorage.setItem('token', res.data.token)
       if (res.request.status === 200) {
-        console.log(true)
+        // console.log(true)
         const me = await auth.me() 
         dispatch(setUser(me.data.user))
         navigate('/')
